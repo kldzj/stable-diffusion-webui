@@ -12,6 +12,14 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        image:
+          - cuda: 11.7.1
+            tag: latest
+          - cuda: 11.4.2
+            tag: cuda11.4.2
     permissions:
       contents: read
       packages: write
@@ -33,7 +41,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=latest
+            type=raw,value=${{ matrix.image.tag }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
@@ -44,3 +52,5 @@ jobs:
           file: docker/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            CUDA_VERSION=${{ matrix.image.cuda }}

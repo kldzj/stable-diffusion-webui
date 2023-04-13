@@ -1,4 +1,5 @@
-FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04
+ARG CUDA_VERSION=11.7.1
+FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-runtime-ubuntu20.04
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
