@@ -19,6 +19,7 @@ jobs:
           - cuda: 11.7.1
             tag: latest
           - cuda: 11.4.2
+            torch: 'pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 --extra-index-url https://download.pytorch.org/whl/cu113'
             tag: cuda11.4.2
     permissions:
       contents: read
@@ -54,3 +55,4 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             CUDA_VERSION=${{ matrix.image.cuda }}
+            TORCH_COMMAND=${{ matrix.image.torch }}

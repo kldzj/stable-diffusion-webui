@@ -1,4 +1,5 @@
 ARG CUDA_VERSION=11.7.1
+ARG TORCH_COMMAND=""
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-runtime-ubuntu20.04
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -19,6 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY webui.sh webui.sh
 
 ENV install_dir=/
+ENV TORCH_COMMAND=${TORCH_COMMAND}
 RUN ./webui.sh -f can_run_as_root --exit --skip-torch-cuda-test
 
 ENV VIRTUAL_ENV=/stable-diffusion-webui/venv
