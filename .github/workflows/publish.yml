@@ -55,5 +55,5 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            CUDA_VERSION="${{ matrix.image.cuda }}"
-            TORCH_COMMAND="${{ matrix.image.torch }}"
+            CUDA_VERSION=${{ matrix.image.cuda }}
+            TORCH_COMMAND=${{ matrix.image.torch }}
