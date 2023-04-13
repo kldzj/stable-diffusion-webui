@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY webui.sh webui.sh
 
 ENV install_dir=/
-ENV TORCH_COMMAND=${TORCH_COMMAND}
+ENV TORCH_COMMAND="${TORCH_COMMAND}"
 RUN ./webui.sh -f can_run_as_root --exit --skip-torch-cuda-test
 
 ENV VIRTUAL_ENV=/stable-diffusion-webui/venv
