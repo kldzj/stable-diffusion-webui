@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	sudo \
 	net-tools \
 	iproute2 \
+	google-perftools \
 	&& \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
