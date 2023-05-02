@@ -3,14 +3,14 @@ FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-runtime-ubuntu20.04
 ARG TORCH_COMMAND
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -y && apt-get install -y --quiet --no-install-recommends \
 	software-properties-common
 
 RUN add-apt-repository -y ppa:deadsnakes/ppa
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update -y && apt-get install -y --quiet --no-install-recommends \
 	libgl1 libglib2.0-0 \
 	python3.10 python3.10-venv \
-	python3.10-distutils pip3.10 \
+	python3.10-distutils pip \
 	wget curl \
 	git \
 	vim \
