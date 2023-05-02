@@ -1,13 +1,18 @@
-ARG CUDA_VERSION=11.7.1
+ARG CUDA_VERSION=11.8.0
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn8-runtime-ubuntu20.04
 ARG TORCH_COMMAND
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
+	software-properties-common
+
+RUN add-apt-repository -y ppa:deadsnakes/ppa
+RUN apt-get update && apt-get install -y --no-install-recommends \
 	libgl1 libglib2.0-0 \
-	python3 python3-venv \
+	python3.10 python3.10-venv \
+	python3.10-distutils pip3.10 \
+	wget curl \
 	git \
-	wget \
 	vim \
 	inetutils-ping \
 	sudo \
@@ -17,6 +22,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/*
+
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 999 \
+	&& update-alternatives --config python3 && ln -s /usr/bin/python3 /usr/bin/python
+
+RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10
 
 COPY webui.sh webui.sh
 
