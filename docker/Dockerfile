@@ -8,7 +8,8 @@ RUN apt-get update -y && apt-get install -y --quiet --no-install-recommends \
 
 RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt-get update -y && apt-get install -y --quiet --no-install-recommends \
-	gcc libgl1 libglib2.0-0 \
+	gcc build-essential \
+	libgl1 libglib2.0-0 \
 	python3.10 python3.10-venv \
 	python3.10-distutils pip \
 	wget curl \
