@@ -10,8 +10,9 @@ RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt-get update -y && apt-get install -y --quiet --no-install-recommends \
 	gcc build-essential \
 	libgl1 libglib2.0-0 \
-	python3.10 python3.10-venv \
-	python3.10-distutils pip \
+	python3.10 python3.10-dev pip \
+	python3.10-distutils \
+	python3.10-venv \
 	wget curl \
 	git \
 	vim \
