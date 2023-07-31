@@ -11,8 +11,7 @@ from modules.shared import opts
 def run_postprocessing(extras_mode, image, image_folder: List[tempfile.NamedTemporaryFile], input_dir, output_dir, show_extras_results, *args, save_output: bool = True):
     devices.torch_gc()
 
-    shared.state.begin()
-    shared.state.job = 'extras'
+    shared.state.begin(job="extras")
 
     image_data = []
     image_names = []
@@ -56,7 +55,9 @@ def run_postprocessing(extras_mode, image, image_folder: List[tempfile.NamedTemp
     for image, name in zip(image_data, image_names):
         shared.state.textinfo = name
 
-        existing_pnginfo = image.info or {}
+        parameters, existing_pnginfo = images.read_info_from_image(image)
+        if parameters:
+            existing_pnginfo["parameters"] = parameters
 
         pp = scripts_postprocessing.PostprocessedImage(image.convert("RGB"))
 
